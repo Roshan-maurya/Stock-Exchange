@@ -1,0 +1,119 @@
+{% load static %}
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Financial Data</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.0/css/bulma.css" />
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="{% static 'myapp/css/common.css' %}" />
+
+<!-- <style>
+
+
+</style> -->
+
+</head>
+
+
+<body>
+	
+	<section class="container">
+
+		<div class="row" style="margin-top:3%" >
+			<div class="col-lg-3"></div>
+			<div class="col-lg-6 heading text-center">
+				<h2 class="has-text-weight-normal has-text-white">
+					Django-Bokeh-AlphaVantage
+				</h2>
+			</div>
+			<div class="col-lg-3"></div>
+		</div>
+
+
+		<div class="row">
+
+			<div class="col-lg-2"></div>
+			<div class="col-lg-8">
+				<form id="stock_form" class="form" action="{% url 'homepage' %}" method="post">
+					{% csrf_token %} 
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="username">Stock Name:</label><br>
+								<select class="form-control form_submit" id="stock_dropdown" name="stock_dropdown">
+									<option>--Select Stock--</option>
+									<option value="AAPL" {% if stock_name == 'AAPL' %} selected {% endif %}>AAPL</option>
+									<option value="GOOG" {% if stock_name == 'GOOG' %} selected {% endif %}>GOOG</option>
+									<option value="HDB" {% if stock_name == 'HDB' %} selected {% endif %}>HDB</option>
+									<option value="JPM" {% if stock_name == 'JPM' %} selected {% endif %}>JPM</option>
+									<option value="IBM" {% if stock_name == 'IBM' %} selected {% endif %}>IBM</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="username">Time Period</label><br>
+								<select class="form-control form_submit" id="stock_time" name="stock_time">
+									<!-- <option>--select--</option> -->
+									<option value="TIME_SERIES_DAILY" {% if stock_period == 'TIME_SERIES_DAILY' %} selected {% endif %}>Daily</option>
+									<option value="TIME_SERIES_WEEKLY" {% if stock_period == 'TIME_SERIES_WEEKLY' %} selected {% endif %}>Weekly</option>
+									<option value="TIME_SERIES_MONTHLY" {% if stock_period == 'TIME_SERIES_MONTHLY' %} selected {% endif %}>Monthly</option>
+								</select>
+							</div>	
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-lg-2"></div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-lg-2"></div>
+			<div class="col-lg-8 col-md-12">
+				<div class="column">
+					{% if div != 'no' %}
+					{{ div | safe }}
+					{% endif %}
+				</div>
+
+			</div>
+			<div class="col-lg-2"></div>
+		</div>
+	</section>
+
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.4.0/bokeh.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.4.0/bokeh-widgets.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+	</script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+	</script>
+	{% if script != 'no' %}
+	{{ script | safe }}
+	{% endif %}
+	<script>
+		$(document).ready(function(){
+			$('.bk-toolbar').css('display','none');
+		});
+		$('.form_submit').on('change', function(){
+			if($(this).attr('id') == 'stock_dropdown'){
+				if($(this).val() != ''){
+					$("#stock_form").submit();
+				}
+			}else{
+				$("#stock_form").submit();
+			}
+		});
+	</script>
+</body>
+
+</html>

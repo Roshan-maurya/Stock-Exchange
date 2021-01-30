@@ -1,0 +1,20 @@
+.heading{
+	background: #eab212;
+    border-radius: 25px;
+    color: white;
+    font-style: italic;
+    border: 1px solid #9c9696;
+    box-shadow: 3px 6px 10px #a5a2a2;
+    font-family: auto;
+	text-transform: capitalize;
+}
+
+label{
+	color: #50504e;
+    font-weight: 600;
+    font-size: 17px;
+    font-family: auto;
+}
+.bk-toolbar {
+    display: none;
+}
